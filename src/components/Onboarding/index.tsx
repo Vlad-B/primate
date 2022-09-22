@@ -1,0 +1,102 @@
+import React, { useState } from "react";
+
+// third party
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Parallax, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// assets
+import "./styles/index.css";
+
+// project imports
+import Slide from "./Slide";
+import SeeGuidelines from "./SeeGuidelines";
+
+interface SwiperTypes {
+	slidePrev?: any;
+	slideNext?: any;
+}
+
+const slides = [
+	{
+		title: "Welcome to Primate",
+		dataSwiperParallax: "-23%",
+	},
+	{
+		title: "Promoting ethical primate tourism",
+		dataSwiperParallax: "-23%",
+	},
+	{
+		title: "Helping you and primates stay safe",
+		dataSwiperParallax: "-23%",
+		children: <SeeGuidelines />,
+	},
+	{
+		title: `Let's get exploring!`,
+		dataSwiperParallax: "-23%",
+	},
+];
+
+const Onboarding: React.FC = () => {
+	const [swiper, setSwiper] = useState<SwiperTypes>({});
+	const [activeIndex, setActiveIndex] = useState(0);
+
+	return (
+		<div className="onboarding-wrapper">
+			<Swiper
+				onSwiper={(swiper: any) => setSwiper(swiper)}
+				speed={600}
+				parallax={true}
+				pagination={{
+					clickable: true,
+				}}
+				modules={[Parallax, Pagination]}
+				onSlideChange={(swiper) => {
+					setActiveIndex(swiper.activeIndex);
+				}}
+			>
+				<div
+					slot="container-start"
+					className="parallax-bg"
+					data-swiper-parallax="-23%"
+				></div>
+				{slides.map((slide, idx) => (
+					<SwiperSlide key={idx}>
+						<Slide
+							title={slide.title}
+							dataSwiperParallax={slide.dataSwiperParallax}
+						>
+							{slide.children}
+						</Slide>
+					</SwiperSlide>
+				))}
+				<div className="parallax-footer">
+					{activeIndex !== 0 ? (
+						<button
+							onClick={() => swiper.slidePrev()}
+							className="btn btn-back"
+						>
+							Previous
+						</button>
+					) : (
+						<span />
+					)}
+					{activeIndex === slides.length - 1 ? (
+						<button className="btn btn-next">Explore</button>
+					) : (
+						<button
+							onClick={() => swiper.slideNext()}
+							className="btn btn-next"
+						>
+							Next
+						</button>
+					)}
+				</div>
+			</Swiper>
+		</div>
+	);
+};
+
+export default Onboarding;

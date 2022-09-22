@@ -1,0 +1,16 @@
+.slide {
+	width: 75%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	&--title {
+		font-size: 41px;
+		line-height: 43px;
+		font-weight: 700;
+		margin: 0 auto;
+		text-align: center;
+	}
+}
