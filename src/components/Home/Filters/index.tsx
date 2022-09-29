@@ -16,13 +16,13 @@ import CustomToggleButton from "../../ui-components/CustomToggleButton";
 const Filters: React.FC = () => {
 	return (
 		<div className="filters">
-			<CustomToggleButton icon={earthOutline}>
+			<CustomToggleButton shape="round" icon={earthOutline}>
 				All Sites
 			</CustomToggleButton>
-			<CustomToggleButton icon={starOutline}>
+			<CustomToggleButton shape="round" icon={starOutline}>
 				Favourites
 			</CustomToggleButton>
-			<CustomToggleButton icon={checkmarkCircleOutline}>
+			<CustomToggleButton shape="round" icon={checkmarkCircleOutline}>
 				I've Been
 			</CustomToggleButton>
 		</div>

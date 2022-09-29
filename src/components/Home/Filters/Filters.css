@@ -10,11 +10,12 @@
   flex-wrap: nowrap;
 }
 .filters .button {
-  border-radius: 20px;
   font-weight: 700;
   font-size: 14px;
   height: 25px;
   color: #000;
+  --padding-start: 15px;
+  --padding-end: 15px;
 }
 .filters .button .icon {
   margin-right: 5px;

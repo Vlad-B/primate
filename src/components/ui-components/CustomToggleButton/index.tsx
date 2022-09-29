@@ -7,9 +7,15 @@ interface Props {
 	className?: string;
 	icon?: string;
 	children?: string;
+	shape?: "round" | undefined;
 }
 
-const CustomToggleButton: React.FC<Props> = ({ className, icon, children }) => {
+const CustomToggleButton: React.FC<Props> = ({
+	className,
+	icon,
+	children,
+	shape,
+}) => {
 	const [toggle, setToggle] = useState(false);
 
 	const handleToggle = () => {
@@ -21,6 +27,7 @@ const CustomToggleButton: React.FC<Props> = ({ className, icon, children }) => {
 			style={{ "--background": toggle ? "#55ffa3" : "#fff" }}
 			className={className}
 			onClick={handleToggle}
+			shape={shape}
 		>
 			<IonIcon className={`icon icon-${icon}`} icon={icon} />
 			<span>{children}</span>
