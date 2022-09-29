@@ -1,17 +1,20 @@
 import React, { useRef, useEffect, useState } from "react";
 
 // third party
-import { IonPage } from "@ionic/react";
+import { IonFab, IonIcon, IonPage, IonFabButton } from "@ionic/react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { add } from "ionicons/icons";
 
 // assets
 import "./Home.css";
+import logo from "../../assets/images/logo.png";
 
 // project imports
 import SearchBox from "./SearchBox";
 import Filters from "./Filters";
 import MapOptions from "./MapOptions";
+import CustomButton from "../ui-components/CustomButton";
 
 mapboxgl.accessToken =
 	"pk.eyJ1IjoiYnZsYWQiLCJhIjoiY2w4bjduZXY2MG5mbTN5b2FlMXdiNng1cSJ9.BHmzQCKBvJ7n8EXH7UNMcg";
@@ -49,6 +52,17 @@ const Home: React.FC = () => {
 				<SearchBox />
 				<Filters />
 				<MapOptions />
+				<CustomButton className="guidelines" shape="round">
+					<span className="guidelines-content">
+						<p>Guidelines</p>
+						<img src={logo} alt="Primate" />
+					</span>
+				</CustomButton>
+				<IonFab className="primate-fab" slot="fixed">
+					<IonFabButton>
+						<IonIcon icon={add} />
+					</IonFabButton>
+				</IonFab>
 			</div>
 		</IonPage>
 	);

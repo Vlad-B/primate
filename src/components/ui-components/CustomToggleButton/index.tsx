@@ -29,7 +29,7 @@ const CustomToggleButton: React.FC<Props> = ({
 			onClick={handleToggle}
 			shape={shape}
 		>
-			<IonIcon className={`icon icon-${icon}`} icon={icon} />
+			{icon && <IonIcon className={`icon icon-${icon}`} icon={icon} />}
 			<span>{children}</span>
 		</IonButton>
 	);
