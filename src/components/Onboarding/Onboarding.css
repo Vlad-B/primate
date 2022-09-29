@@ -25,6 +25,30 @@
   background-size: cover;
   background-position: center;
 }
+.onboarding-wrapper .guidelines {
+  margin-top: 30px;
+  color: #fff;
+  width: 100%;
+  height: 35px;
+  --background: #000;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+.onboarding-wrapper .guidelines-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.onboarding-wrapper .guidelines-content p {
+  font-size: 16px;
+  font-weight: 700;
+}
+.onboarding-wrapper .guidelines-content img {
+  margin-left: 10px;
+  width: 18px;
+  height: 18px;
+}
 .onboarding-wrapper .parallax-footer {
   z-index: 10;
   position: absolute;

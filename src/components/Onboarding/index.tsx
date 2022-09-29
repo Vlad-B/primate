@@ -11,10 +11,11 @@ import "swiper/css/navigation";
 
 // assets
 import "./Onboarding.css";
+import logo from "../../assets/images/logo.png";
 
 // project imports
 import Slide from "./Slide";
-import SeeGuidelines from "./SeeGuidelines";
+import CustomButton from "../ui-components/CustomButton";
 
 interface SwiperTypes {
 	slidePrev?: any;
@@ -33,7 +34,14 @@ const slides = [
 	{
 		title: "Helping you and primates stay safe",
 		dataSwiperParallax: "-23%",
-		children: <SeeGuidelines />,
+		children: (
+			<CustomButton className="guidelines" shape="round">
+				<span className="guidelines-content">
+					<p>See illustrated guidelines</p>
+					<img src={logo} alt="Primate" />
+				</span>
+			</CustomButton>
+		),
 	},
 	{
 		title: `Let's get exploring!`,
