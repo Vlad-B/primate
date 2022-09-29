@@ -1,7 +1,7 @@
 import react from "react";
 
 //assets
-import "./styles/index.css";
+import "./SplashScreen.css";
 import logo from "../../assets/images/logo.png";
 
 const SplashScreen: React.FC = () => (

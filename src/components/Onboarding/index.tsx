@@ -10,12 +10,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // assets
-import "./styles/index.css";
+import "./Onboarding.css";
 
 // project imports
 import Slide from "./Slide";
 import SeeGuidelines from "./SeeGuidelines";
-import Home from "../Home";
 
 interface SwiperTypes {
 	slidePrev?: any;

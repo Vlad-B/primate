@@ -1,7 +1,7 @@
 import React from "react";
 
 // assets
-import "./styles/index.css";
+import "./Slide.css";
 
 interface Props {
 	title?: string;

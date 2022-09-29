@@ -1,7 +1,7 @@
 import React from "react";
 
 // assets
-import "./styles/index.css";
+import "./SeeGuidelines.css";
 import logo from "../../../assets/images/logo.png";
 
 const SeeGuidelines: React.FC = () => (
