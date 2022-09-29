@@ -27,7 +27,7 @@
 				rgba(0, 0, 0, 0.3),
 				rgba(0, 0, 0, 0.3)
 			),
-			url("../../assets/images/onboarding_background.jpg");
+			url("../../../assets/images/onboarding_background.jpg");
 		background-size: cover;
 		background-position: center;
 	}
@@ -44,8 +44,13 @@
 		justify-content: space-between;
 
 		.btn {
+			max-height: 35px;
 			background-color: unset;
 			font-size: 16px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
 
 			&-back {
 				color: #55ffa3;

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 // third party
+import { Link } from "react-router-dom";
+import { IonRouterLink, IonPage } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Parallax, Pagination } from "swiper";
 import "swiper/css";
@@ -13,6 +15,7 @@ import "./styles/index.css";
 // project imports
 import Slide from "./Slide";
 import SeeGuidelines from "./SeeGuidelines";
+import Home from "../Home";
 
 interface SwiperTypes {
 	slidePrev?: any;
@@ -44,58 +47,62 @@ const Onboarding: React.FC = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	return (
-		<div className="onboarding-wrapper">
-			<Swiper
-				onSwiper={(swiper: any) => setSwiper(swiper)}
-				speed={600}
-				parallax={true}
-				pagination={{
-					clickable: true,
-				}}
-				modules={[Parallax, Pagination]}
-				onSlideChange={(swiper) => {
-					setActiveIndex(swiper.activeIndex);
-				}}
-			>
-				<div
-					slot="container-start"
-					className="parallax-bg"
-					data-swiper-parallax="-23%"
-				></div>
-				{slides.map((slide, idx) => (
-					<SwiperSlide key={idx}>
-						<Slide
-							title={slide.title}
-							dataSwiperParallax={slide.dataSwiperParallax}
-						>
-							{slide.children}
-						</Slide>
-					</SwiperSlide>
-				))}
-				<div className="parallax-footer">
-					{activeIndex !== 0 ? (
-						<button
-							onClick={() => swiper.slidePrev()}
-							className="btn btn-back"
-						>
-							Previous
-						</button>
-					) : (
-						<span />
-					)}
-					{activeIndex === slides.length - 1 ? (
-						<button className="btn btn-next">Explore</button>
-					) : (
-						<button
-							onClick={() => swiper.slideNext()}
-							className="btn btn-next"
-						>
-							Next
-						</button>
-					)}
-				</div>
-			</Swiper>
-		</div>
+		<IonPage>
+			<div className="onboarding-wrapper">
+				<Swiper
+					onSwiper={(swiper: any) => setSwiper(swiper)}
+					speed={600}
+					parallax={true}
+					pagination={{
+						clickable: true,
+					}}
+					modules={[Parallax, Pagination]}
+					onSlideChange={(swiper) => {
+						setActiveIndex(swiper.activeIndex);
+					}}
+				>
+					<div
+						slot="container-start"
+						className="parallax-bg"
+						data-swiper-parallax="-23%"
+					></div>
+					{slides.map((slide, idx) => (
+						<SwiperSlide key={idx}>
+							<Slide
+								title={slide.title}
+								dataSwiperParallax={slide.dataSwiperParallax}
+							>
+								{slide.children}
+							</Slide>
+						</SwiperSlide>
+					))}
+					<div className="parallax-footer">
+						{activeIndex !== 0 ? (
+							<button
+								onClick={() => swiper.slidePrev()}
+								className="btn btn-back"
+							>
+								Previous
+							</button>
+						) : (
+							<span />
+						)}
+						{activeIndex === slides.length - 1 ? (
+							<Link to="/home" className="btn btn-next">
+								<span>Explore</span>
+							</Link>
+						) : (
+							<button
+								onClick={() => swiper.slideNext()}
+								className="btn btn-next"
+							>
+								<span>Next</span>
+							</button>
+						)}
+					</div>
+				</Swiper>
+			</div>
+		</IonPage>
 	);
 };
 

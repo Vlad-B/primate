@@ -37,8 +37,13 @@
   justify-content: space-between;
 }
 .onboarding-wrapper .parallax-footer .btn {
+  max-height: 35px;
   background-color: unset;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 .onboarding-wrapper .parallax-footer .btn-back {
   color: #55ffa3;
