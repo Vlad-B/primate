@@ -11,6 +11,7 @@ import "./Home.css";
 // project imports
 import SearchBox from "./SearchBox";
 import Filters from "./Filters";
+import MapOptions from "./MapOptions";
 
 mapboxgl.accessToken =
 	"pk.eyJ1IjoiYnZsYWQiLCJhIjoiY2w4bjduZXY2MG5mbTN5b2FlMXdiNng1cSJ9.BHmzQCKBvJ7n8EXH7UNMcg";
@@ -47,6 +48,7 @@ const Home: React.FC = () => {
 				<div ref={mapContainer} className="map-container" />
 				<SearchBox />
 				<Filters />
+				<MapOptions />
 			</div>
 		</IonPage>
 	);
