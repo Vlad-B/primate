@@ -13,7 +13,7 @@ const SearchBox: React.FC = () => {
 				className="search-bar"
 				placeholder="Explore primate sites"
 			/>
-			<IonIcon icon={menuOutline} />
+			<IonIcon className="icon-menu" icon={menuOutline} />
 		</div>
 	);
 };
