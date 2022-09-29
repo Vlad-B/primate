@@ -1,7 +1,7 @@
 .splashscreen {
   height: 100%;
   width: 100%;
-  background-image: url("../../assets/images/splashscreen_background.png");
+  background-image: url("../../assets/images/splashscreen_background.webp");
   display: flex;
   justify-content: center;
   align-items: center;
