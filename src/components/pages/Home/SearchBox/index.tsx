@@ -4,6 +4,7 @@ import React from "react";
 import { IonSearchbar, IonIcon } from "@ionic/react";
 import { menuOutline } from "ionicons/icons";
 
+// assets
 import "./SearchBox.css";
 
 const SearchBox: React.FC = () => {

@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 
 //assets
 import "./SplashScreen.css";
@@ -6,7 +6,7 @@ import logo from "../../assets/images/logo.png";
 
 const SplashScreen: React.FC = () => (
 	<div className="splashscreen">
-		<img className="splashscreen--logo" src={logo} />
+		<img className="splashscreen--logo" src={logo} alt="Logo" />
 	</div>
 );
 

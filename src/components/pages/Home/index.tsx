@@ -24,7 +24,7 @@ const Home: React.FC = () => {
 	const map = useRef({});
 	const [lng, setLng] = useState<number>(null!);
 	const [lat, setLat] = useState<number>(null!);
-	const [zoom, setZoom] = useState(5);
+	const [zoom] = useState(5);
 
 	useEffect(() => {
 		if (!map.current) return;

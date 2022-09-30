@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactNode } from "react";
+import React, { MouseEventHandler } from "react";
 
 // third party
 import { IonButton, IonIcon } from "@ionic/react";

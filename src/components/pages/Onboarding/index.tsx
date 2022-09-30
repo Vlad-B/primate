@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // third party
 import { Link } from "react-router-dom";
-import { IonRouterLink, IonPage } from "@ionic/react";
+import { IonPage } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Parallax, Pagination } from "swiper";
 import "swiper/css";
