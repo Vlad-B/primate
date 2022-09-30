@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 
 // third party
 import { IonFab, IonIcon, IonPage, IonFabButton } from "@ionic/react";
+import { Geolocation } from "@awesome-cordova-plugins/geolocation";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { add } from "ionicons/icons";
@@ -30,10 +31,12 @@ const Home: React.FC = () => {
 		if (!map.current) return;
 
 		// set up user coordonates
-		navigator.geolocation.getCurrentPosition((position) => {
-			setLng(position.coords.longitude);
-			setLat(position.coords.latitude);
-		});
+		Geolocation.getCurrentPosition()
+			.then(({ coords }) => {
+				setLat(coords.latitude);
+				setLng(coords.longitude);
+			})
+			.catch((err) => console.error(err));
 
 		// initiate map object
 		map.current = new mapboxgl.Map({
