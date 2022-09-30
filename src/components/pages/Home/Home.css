@@ -3,7 +3,7 @@
   height: 100%;
   width: 100%;
 }
-.home .map-container {
+.home .mapboxgl-map .mapboxgl-canvas-container .mapboxgl-canvas {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -11,7 +11,7 @@
   right: 0;
   z-index: 0;
 }
-.home .map-container .mapboxgl-ctrl {
+.home .mapboxgl-map .mapboxgl-ctrl {
   display: none !important;
 }
 .home .guidelines {

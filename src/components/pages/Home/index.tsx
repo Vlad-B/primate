@@ -3,9 +3,9 @@ import React, { useRef, useEffect, useState } from "react";
 // third party
 import { IonFab, IonIcon, IonPage, IonFabButton } from "@ionic/react";
 import { Geolocation } from "@awesome-cordova-plugins/geolocation";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { add } from "ionicons/icons";
+import { Map } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 // assets
 import "./Home.css";
@@ -16,42 +16,47 @@ import SearchBox from "./SearchBox";
 import Filters from "./Filters";
 import MapOptions from "./MapOptions";
 import CustomButton from "../../ui-components/CustomButton";
+import Loading from "../../ui-components/Loading";
 
-mapboxgl.accessToken =
+// types
+import type { MapRef } from "react-map-gl";
+
+const MAPBOX_TOKEN =
 	"pk.eyJ1IjoiYnZsYWQiLCJhIjoiY2w4bjduZXY2MG5mbTN5b2FlMXdiNng1cSJ9.BHmzQCKBvJ7n8EXH7UNMcg";
 
 const Home: React.FC = () => {
-	const mapContainer = useRef<HTMLDivElement>(null!);
-	const map = useRef({});
+	const [loading, setLoading] = useState<boolean>(true);
 	const [lng, setLng] = useState<number>(null!);
 	const [lat, setLat] = useState<number>(null!);
 	const [zoom] = useState(5);
+	const mapRef = useRef<MapRef>(null);
 
 	useEffect(() => {
-		if (!map.current) return;
-
 		// set up user coordonates
 		Geolocation.getCurrentPosition()
 			.then(({ coords }) => {
 				setLat(coords.latitude);
 				setLng(coords.longitude);
+				setLoading(false);
 			})
 			.catch((err) => console.error(err));
+	}, [lng, lat]);
 
-		// initiate map object
-		map.current = new mapboxgl.Map({
-			container: mapContainer.current,
-			style: "mapbox://styles/mapbox/streets-v11",
-			center: [lng, lat],
-			zoom: zoom,
-			attributionControl: false,
-		});
-	});
+	if (loading) return <Loading />;
 
 	return (
 		<IonPage>
 			<div className="home">
-				<div ref={mapContainer} className="map-container" />
+				<Map
+					initialViewState={{
+						latitude: lat,
+						longitude: lng,
+						zoom: zoom,
+					}}
+					mapStyle="mapbox://styles/mapbox/streets-v11"
+					mapboxAccessToken={MAPBOX_TOKEN}
+					ref={mapRef}
+				></Map>
 				<SearchBox />
 				<Filters />
 				<MapOptions />
