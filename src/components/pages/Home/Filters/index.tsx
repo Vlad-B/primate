@@ -11,7 +11,7 @@ import {
 import "./Filters.css";
 
 // project imports
-import CustomToggleButton from "../../ui-components/CustomToggleButton";
+import CustomToggleButton from "../../../ui-components/CustomToggleButton";
 
 const Filters: React.FC = () => {
 	return (

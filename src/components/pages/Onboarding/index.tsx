@@ -11,11 +11,11 @@ import "swiper/css/navigation";
 
 // assets
 import "./Onboarding.css";
-import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.png";
 
 // project imports
 import Slide from "./Slide";
-import CustomButton from "../ui-components/CustomButton";
+import CustomButton from "../../ui-components/CustomButton";
 
 interface SwiperTypes {
 	slidePrev?: any;

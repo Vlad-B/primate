@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 //third party
-import { IonApp, IonPage, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import {
+	IonApp,
+	IonPage,
+	IonRouterOutlet,
+	setupIonicReact,
+} from "@ionic/react";
 import { Redirect, Route } from "react-router-dom";
 import { IonReactRouter } from "@ionic/react-router";
 
@@ -24,9 +29,9 @@ import "./theme/variables.css";
 // assets
 import "./assets/styles/app.css";
 // project imports
-import Onboarding from "./components/Onboarding";
+import Onboarding from "./components/pages/Onboarding";
 import SplashScreen from "./components/SplashScreen";
-import Home from './components/Home';
+import Home from "./components/pages/Home";
 
 setupIonicReact();
 
@@ -43,23 +48,23 @@ const App: React.FC = () => {
 
 	return (
 		<IonApp className="app">
-      <IonPage>
-        {loading ? (
-          <SplashScreen />
-        ) : (
-          <IonReactRouter>
-            <IonRouterOutlet>
-              <Route path="/onboarding" component={Onboarding} />
-              <Route
-                exact
-                path="/"
-                render={() => <Redirect to="/onboarding" />}
-              />
-              <Route path="/home" component={Home}/>
-            </IonRouterOutlet>
-          </IonReactRouter>
-        )}
-      </IonPage>
+			<IonPage>
+				{loading ? (
+					<SplashScreen />
+				) : (
+					<IonReactRouter>
+						<IonRouterOutlet>
+							<Route path="/onboarding" component={Onboarding} />
+							<Route
+								exact
+								path="/"
+								render={() => <Redirect to="/onboarding" />}
+							/>
+							<Route path="/home" component={Home} />
+						</IonRouterOutlet>
+					</IonReactRouter>
+				)}
+			</IonPage>
 		</IonApp>
 	);
 };

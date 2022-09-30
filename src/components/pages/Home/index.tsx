@@ -8,13 +8,13 @@ import { add } from "ionicons/icons";
 
 // assets
 import "./Home.css";
-import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.png";
 
 // project imports
 import SearchBox from "./SearchBox";
 import Filters from "./Filters";
 import MapOptions from "./MapOptions";
-import CustomButton from "../ui-components/CustomButton";
+import CustomButton from "../../ui-components/CustomButton";
 
 mapboxgl.accessToken =
 	"pk.eyJ1IjoiYnZsYWQiLCJhIjoiY2w4bjduZXY2MG5mbTN5b2FlMXdiNng1cSJ9.BHmzQCKBvJ7n8EXH7UNMcg";
