@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useDidMountEffect } from "../../../hooks/useDidMountEffect";
 
 // third party
 import {
@@ -9,7 +10,7 @@ import {
 	IonButton,
 } from "@ionic/react";
 import { Geolocation } from "@awesome-cordova-plugins/geolocation";
-import { add, location } from "ionicons/icons";
+import { add, location, map } from "ionicons/icons";
 import { Map, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -37,22 +38,9 @@ const Home: React.FC = () => {
 	const [lng, setLng] = useState<number>(null!);
 	const [lat, setLat] = useState<number>(null!);
 	const [zoom, setZoom] = useState<number>(3);
+	const [bounds, setBounds] = useState<number[]>(null!);
+	const [points, setPoints] = useState<Array<{}>>([]);
 	const mapRef = useRef<MapRef>(null!);
-
-	const points = data.map((coords, idx) => {
-		return {
-			type: "Feature",
-			properties: {
-				cluster: false,
-				id: idx,
-			},
-			geometry: { type: "Point", coordinates: [coords[0], coords[1]] },
-		};
-	});
-
-	const bounds = mapRef.current
-		? mapRef.current.getMap().getBounds().toArray().flat()
-		: null;
 
 	const { clusters, supercluster } = useSupercluster({
 		points,
@@ -61,12 +49,17 @@ const Home: React.FC = () => {
 		zoom,
 		options: { radius: 50, maxZoom: 20 },
 	});
-	
+
+	const handleOnLoad = () => {
+		setBounds(mapRef.current.getMap().getBounds().toArray().flat());
+	};
+
 	const handleOnMove = (evt: any) => {
 		const { viewState } = evt;
 		setLat(viewState.latitude);
 		setLng(viewState.longitude);
 		setZoom(viewState.zoom);
+		setBounds(mapRef.current.getMap().getBounds().toArray().flat());
 	};
 
 	const clusterZoom = (cluster: any) => {
@@ -78,18 +71,32 @@ const Home: React.FC = () => {
 		});
 	};
 
-	useEffect(() => {
-		if (!mapRef) return;
-
-		// set up user coordonates
+	useDidMountEffect(() => {
 		Geolocation.getCurrentPosition()
 			.then(({ coords }) => {
 				setLat(coords.latitude);
 				setLng(coords.longitude);
-				setLoading(false);
 			})
 			.catch((err) => console.error(err));
-	}, [mapRef]);
+	}, []);
+
+	useDidMountEffect(() => {
+		const locations = data.map((coords, idx) => {
+			return {
+				type: "Feature",
+				properties: {
+					cluster: false,
+					id: idx,
+				},
+				geometry: {
+					type: "Point",
+					coordinates: [coords[0], coords[1]],
+				},
+			};
+		});
+		setPoints(locations);
+		setLoading(false);
+	}, []);
 
 	if (loading) return <Loading />;
 
@@ -103,6 +110,7 @@ const Home: React.FC = () => {
 						latitude: lat,
 						zoom: zoom,
 					}}
+					onLoad={handleOnLoad}
 					mapStyle="mapbox://styles/mapbox/streets-v11"
 					mapboxAccessToken={MAPBOX_TOKEN}
 					maxZoom={20}
