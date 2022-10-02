@@ -36,7 +36,12 @@
 			--padding-start: 0;
 			--padding-end: 0;
 			--box-shadow: none;
-			
+			--background: none;
+			--background-activated: none;
+			--background-focused: none;
+			--background-hover: none;
+			--ripple-color: transparent;
+
 			&-icon {
 				font-size: 35px;
 				color: #3E4247;
