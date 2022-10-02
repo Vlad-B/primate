@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDidMountEffect } from "../../../hooks/useDidMountEffect";
 
 // third party
@@ -10,7 +10,7 @@ import {
 	IonButton,
 } from "@ionic/react";
 import { Geolocation } from "@awesome-cordova-plugins/geolocation";
-import { add, location, map } from "ionicons/icons";
+import { add, location } from "ionicons/icons";
 import { Map, Marker } from "react-map-gl";
 import useSupercluster from "use-supercluster";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -105,11 +105,9 @@ const Home: React.FC = () => {
 			<div className="home">
 				<Map
 					ref={mapRef}
-					initialViewState={{
-						longitude: lng,
-						latitude: lat,
-						zoom: zoom,
-					}}
+					zoom={zoom}
+					longitude={lng}
+					latitude={lat}
 					onLoad={handleOnLoad}
 					mapStyle="mapbox://styles/mapbox/streets-v11"
 					mapboxAccessToken={MAPBOX_TOKEN}
