@@ -31,5 +31,6 @@ export const useDidMountEffect = (
 		if (effectReturns && typeof effectReturns === "function") {
 			return effectReturns;
 		}
+		// eslint-disable-next-line
 	}, deps);
 };
