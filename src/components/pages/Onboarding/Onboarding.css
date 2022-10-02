@@ -33,6 +33,7 @@
   --background: #000;
   --padding-start: 15px;
   --padding-end: 15px;
+  text-transform: none;
 }
 .onboarding-wrapper .guidelines-content {
   display: flex;

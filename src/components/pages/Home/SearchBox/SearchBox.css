@@ -18,6 +18,8 @@
 .search-bar {
   color: #000;
   font-family: inherit;
+  --background: #fff;
+  --box-shadow: none;
 }
 .search-bar .searchbar-search-icon {
   color: #000;

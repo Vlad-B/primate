@@ -35,6 +35,7 @@
 			--background: 'none';
 			--padding-start: 0;
 			--padding-end: 0;
+			--box-shadow: none;
 			
 			&-icon {
 				font-size: 35px;
@@ -52,6 +53,7 @@
 		color: #fff;
 		width: 130px;
 		height: 35px;
+		text-transform: none;
 		--background: #000;
 		--padding-start: 0;
 		--padding-end: 0;
