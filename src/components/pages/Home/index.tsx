@@ -1,10 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 
 // third party
-import { IonFab, IonIcon, IonPage, IonFabButton } from "@ionic/react";
+import {
+	IonFab,
+	IonIcon,
+	IonPage,
+	IonFabButton,
+	IonButton,
+} from "@ionic/react";
 import { Geolocation } from "@awesome-cordova-plugins/geolocation";
-import { add } from "ionicons/icons";
-import { Map } from "react-map-gl";
+import { add, location } from "ionicons/icons";
+import { Map, Marker } from "react-map-gl";
+import useSupercluster from "use-supercluster";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 // assets
@@ -12,6 +19,7 @@ import "./Home.css";
 import logo from "../../../assets/images/logo.png";
 
 // project imports
+import { data } from "./MapData";
 import SearchBox from "./SearchBox";
 import Filters from "./Filters";
 import MapOptions from "./MapOptions";
@@ -28,10 +36,51 @@ const Home: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [lng, setLng] = useState<number>(null!);
 	const [lat, setLat] = useState<number>(null!);
-	const [zoom] = useState(5);
-	const mapRef = useRef<MapRef>(null);
+	const [zoom, setZoom] = useState<number>(3);
+	const mapRef = useRef<MapRef>(null!);
+
+	const points = data.map((coords, idx) => {
+		return {
+			type: "Feature",
+			properties: {
+				cluster: false,
+				id: idx,
+			},
+			geometry: { type: "Point", coordinates: [coords[0], coords[1]] },
+		};
+	});
+
+	const bounds = mapRef.current
+		? mapRef.current.getMap().getBounds().toArray().flat()
+		: null;
+
+	const { clusters, supercluster } = useSupercluster({
+		points,
+		// @ts-ignore unsure how to work around this
+		bounds,
+		zoom,
+		options: { radius: 50, maxZoom: 20 },
+	});
+	
+	const handleOnMove = (evt: any) => {
+		const { viewState } = evt;
+		setLat(viewState.latitude);
+		setLng(viewState.longitude);
+		setZoom(viewState.zoom);
+	};
+
+	const clusterZoom = (cluster: any) => {
+		const zoomStep = supercluster.getClusterExpansionZoom(cluster.id);
+		mapRef.current.easeTo({
+			center: cluster.geometry.coordinates,
+			zoom: zoomStep,
+			duration: 500,
+		});
+	};
 
 	useEffect(() => {
+		if (!mapRef) return;
+
 		// set up user coordonates
 		Geolocation.getCurrentPosition()
 			.then(({ coords }) => {
@@ -40,7 +89,7 @@ const Home: React.FC = () => {
 				setLoading(false);
 			})
 			.catch((err) => console.error(err));
-	}, [lng, lat]);
+	}, [mapRef]);
 
 	if (loading) return <Loading />;
 
@@ -48,15 +97,54 @@ const Home: React.FC = () => {
 		<IonPage>
 			<div className="home">
 				<Map
+					ref={mapRef}
 					initialViewState={{
-						latitude: lat,
 						longitude: lng,
+						latitude: lat,
 						zoom: zoom,
 					}}
 					mapStyle="mapbox://styles/mapbox/streets-v11"
 					mapboxAccessToken={MAPBOX_TOKEN}
-					ref={mapRef}
-				></Map>
+					maxZoom={20}
+					onMove={(evt) => handleOnMove(evt)}
+				>
+					{clusters.map((cluster) => {
+						const [longitude, latitude] = cluster.geometry.coordinates;
+						const { cluster: isCluster, point_count: pointCount } = cluster.properties;
+
+						if (isCluster) {
+							return (
+								<Marker
+									key={cluster.id}
+									latitude={latitude}
+									longitude={longitude}
+									onClick={() => clusterZoom(cluster)}
+								>
+									<div className="cluster-marker" style={{
+										width: `${10 +(pointCount / points.length) *20}px`,
+										height: `${10 +(pointCount / points.length) *20}px`,
+									}}>
+										{pointCount}
+									</div>
+								</Marker>
+							);
+						}
+						return (
+							<Marker
+								key={cluster.properties.id}
+								latitude={latitude}
+								longitude={longitude}
+							>
+								<IonButton className="marker">
+									<IonIcon
+										className="marker-icon"
+										icon={location}
+									/>
+								</IonButton>
+							</Marker>
+						);
+					})}
+				</Map>
 				<SearchBox />
 				<Filters />
 				<MapOptions />
